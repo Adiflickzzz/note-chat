@@ -11,20 +11,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useLocalStorage } from "usehooks-ts";
 import { cn } from "@/lib/utils";
+import { useQuery } from "convex/react";
+import { SidebarTabs } from "./tabs";
+import {
+  Ellipsis,
+  Folders,
+  SendHorizonal,
+  Settings,
+  Store,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-interface MailProps {
-  defaultLayout: number[] | undefined;
-  defaultCollapsed?: boolean;
-  navCollapsedSize: number;
-}
-
-export default function Mail({
-  defaultLayout = [20, 32, 48],
-  defaultCollapsed = false,
-  navCollapsedSize,
-}: MailProps) {
-  const [done, setDone] = useLocalStorage("normalhuman-done", false);
-  const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
+export function Chat() {
+  const defaultLayout = [15, 25, 60];
+  const [done, setDone] = useLocalStorage("", false);
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -39,10 +40,10 @@ export default function Mail({
       >
         <ResizablePanel
           defaultSize={defaultLayout[0]}
-          collapsedSize={navCollapsedSize}
+          collapsedSize={2}
           collapsible={true}
-          minSize={15}
-          maxSize={40}
+          minSize={20}
+          maxSize={15}
           onCollapse={() => {
             setIsCollapsed(true);
             document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
@@ -63,17 +64,35 @@ export default function Mail({
           <div className="flex flex-col h-full flex-1">
             <div
               className={cn(
-                "flex h-[52px] items-center justify-center",
-                isCollapsed ? "h-[52px]" : "px-2"
+                "flex h-[52px] items-center justify-start",
+                isCollapsed ? "h-[52px]" : "p-4"
               )}
-            ></div>
+            >
+              <h1 className="text-xl font-bold">Note-Chat</h1>
+            </div>
             <Separator />
-
-            <div className="flex-1"></div>
+            <div className="flex-1 mt-3">
+              <SidebarTabs
+                items={[
+                  {
+                    name: "Conversations",
+                    icon: <SendHorizonal />,
+                    isActive: true,
+                  },
+                  { name: "Media", icon: <Folders /> },
+                  { name: "Settings", icon: <Settings /> },
+                ]}
+              />
+            </div>
+            {/* <div>Side bar end</div> */}
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
+        <ResizablePanel
+          defaultSize={defaultLayout[1]}
+          maxSize={30}
+          minSize={20}
+        >
           <Tabs
             defaultValue="inbox"
             value={done ? "done" : "inbox"}
@@ -86,19 +105,20 @@ export default function Mail({
             }}
           >
             <div className="flex items-center px-4 py-2">
-              <h1 className="text-xl font-bold">Inbox</h1>
+              <h1 className="text-xl font-bold">DMs</h1>
+
               <TabsList className="ml-auto">
                 <TabsTrigger
                   value="inbox"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  Inbox
+                  DMs
                 </TabsTrigger>
                 <TabsTrigger
                   value="done"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  Done
+                  Groups
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -108,10 +128,15 @@ export default function Mail({
           </Tabs>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel
-          defaultSize={defaultLayout[2]}
-          minSize={30}
-        ></ResizablePanel>
+        <ResizablePanel defaultSize={defaultLayout[2]} minSize={30}>
+          <div className="flex items-center justify-between p-2">
+            <h1 className="text-xl font-bold px-2">Username</h1>
+            <Button className="mr-3 my-0 p-4 rounded-xl" variant="ghost">
+              <Ellipsis />
+            </Button>
+          </div>
+          <Separator />
+        </ResizablePanel>
       </ResizablePanelGroup>
     </TooltipProvider>
   );
