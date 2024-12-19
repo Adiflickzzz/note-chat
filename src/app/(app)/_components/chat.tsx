@@ -21,6 +21,7 @@ import {
   Store,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dm } from "./dm";
 
 export function Chat() {
   const defaultLayout = [15, 25, 60];
@@ -42,8 +43,8 @@ export function Chat() {
           defaultSize={defaultLayout[0]}
           collapsedSize={2}
           collapsible={true}
-          minSize={20}
-          maxSize={15}
+          minSize={15}
+          maxSize={20}
           onCollapse={() => {
             setIsCollapsed(true);
             document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
@@ -123,7 +124,12 @@ export function Chat() {
               </TabsList>
             </div>
             <Separator />
-            <TabsContent value="inbox" className="m-0"></TabsContent>
+            <TabsContent value="inbox" className="m-0">
+              <Dm />
+              <Dm />
+              <Dm />
+              <Dm />
+            </TabsContent>
             <TabsContent value="done" className="m-0"></TabsContent>
           </Tabs>
         </ResizablePanel>
