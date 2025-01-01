@@ -16,9 +16,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "GitGenie",
+  title: "Note-Chat",
   description: "",
-  icons: [{ rel: "icon", url: "/logo.svg" }],
 };
 
 export default function RootLayout({

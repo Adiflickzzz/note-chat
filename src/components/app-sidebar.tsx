@@ -7,8 +7,10 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import UserNav from "./user-nav";
@@ -60,6 +62,7 @@ export async function AppSidebar() {
                       <span>{item.title}</span>
                     </div>
                   </SidebarMenuButton>
+                  <SidebarMenuBadge>1</SidebarMenuBadge>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
