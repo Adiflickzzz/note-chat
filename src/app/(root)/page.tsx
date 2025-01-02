@@ -1,5 +1,9 @@
-"use client";
+import React from "react";
 
-export default function Home() {
-  return <div></div>;
-}
+type Props = {};
+
+const HomePage = (props: Props) => {
+  return <div>HomePage</div>;
+};
+
+export default HomePage;

@@ -3,10 +3,10 @@ import { AppSidebar } from "@/components/app-sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="">
       <AppSidebar />
-      <main>
-        <SidebarTrigger />
+      <main className="h-full w-full p-6">
+        {/* <SidebarTrigger /> */}
         {children}
       </main>
     </SidebarProvider>
