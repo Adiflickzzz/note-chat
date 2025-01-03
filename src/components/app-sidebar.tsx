@@ -14,12 +14,14 @@ import {
 } from "@/components/ui/sidebar";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import UserNav from "./user-nav";
+import Link from "next/link";
 
 // Menu items.
 const items = [
   {
     title: "Messages",
     icon: MessageCircle,
+    url: "/messages",
   },
   {
     title: "Inbox",
@@ -57,10 +59,10 @@ export async function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <div>
+                    <Link href={`${item.url}`}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </div>
+                    </Link>
                   </SidebarMenuButton>
                   <SidebarMenuBadge>1</SidebarMenuBadge>
                 </SidebarMenuItem>

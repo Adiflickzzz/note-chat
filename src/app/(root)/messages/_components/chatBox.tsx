@@ -22,9 +22,11 @@ export const ChatBox = ({ imgUrl, name }: ChatBoxProps) => {
         </CardTitle>
       </CardHeader>
       <Separator />
-      <CardContent className="flex flex-col justify-between">
-        <div className="flex-1">Conversation</div>
-        <Textarea className="" />
+      <CardContent className="h-full">
+        <div className="flex h-full flex-col justify-end">
+          <div>Conversation</div>
+          <Textarea />
+        </div>
       </CardContent>
     </Card>
   );
