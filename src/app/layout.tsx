@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "@/trpc/react";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import ConvexClientProvider from "../providers/ConvexClientProvider";
 
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
@@ -24,13 +24,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" className={`${poppins.className}`}>
-        <body>
+    <html lang="en" className={`${poppins.className}`}>
+      <body>
+        <ConvexClientProvider>
           <TRPCReactProvider>{children}</TRPCReactProvider>
           <Toaster richColors />
-        </body>
-      </html>
-    </ClerkProvider>
+        </ConvexClientProvider>
+      </body>
+    </html>
   );
 }
