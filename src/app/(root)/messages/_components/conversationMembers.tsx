@@ -2,13 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Pen } from "lucide-react";
 import React from "react";
 import { Dms } from "./dms";
+import AddFriendDailog from "./addFriendDailog";
 
 export const ConversationMembers = () => {
   return (
     <div className="my-6">
       <Button>
-        <Pen /> New message
+        <Pen /> Add Friend
       </Button>
+      <AddFriendDailog />
+
       {/* Dms */}
       <div className="my-6 flex flex-col gap-1">
         <h1 className="mb-2 text-xs text-muted-foreground">Direct Messages</h1>
