@@ -7,9 +7,9 @@ import AddFriendDailog from "./addFriendDailog";
 export const ConversationMembers = () => {
   return (
     <div className="my-6">
-      <Button>
+      {/* <Button>
         <Pen /> Add Friend
-      </Button>
+      </Button> */}
       <AddFriendDailog />
 
       {/* Dms */}

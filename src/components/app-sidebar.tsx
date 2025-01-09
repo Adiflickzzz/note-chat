@@ -1,4 +1,11 @@
-import { Calendar, Inbox, MessageCircle, Search, Settings } from "lucide-react";
+import {
+  Calendar,
+  Inbox,
+  MessageCircle,
+  Search,
+  Settings,
+  UserRoundPlus,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -24,8 +31,9 @@ const items = [
     url: "/messages",
   },
   {
-    title: "Inbox",
-    icon: Inbox,
+    title: "Requests",
+    icon: UserRoundPlus,
+    url: "/requests",
   },
   {
     title: "Calendar",
@@ -57,7 +65,7 @@ export async function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem className="font-semibold" key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={`${item.url}`}>
                       <item.icon />
