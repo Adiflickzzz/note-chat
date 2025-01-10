@@ -18,7 +18,7 @@ const RequestsPage = (props: Props) => {
           requests.map((request) => {
             return (
               <Request
-                key={request.request.reciever}
+                key={request.request.receiver}
                 id={request.request._id}
                 imgUrl={request.sender.imageUrl}
                 userName={request.sender.username}

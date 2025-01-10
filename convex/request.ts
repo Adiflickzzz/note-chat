@@ -26,19 +26,19 @@ export const create = mutation({
       throw new ConvexError("User not found");
     }
 
-    const reciever = await ctx.db
+    const receiver = await ctx.db
       .query("users")
       .withIndex("by_email", (q) => q.eq("email", args.email))
       .first();
 
-    if (!reciever) {
+    if (!receiver) {
       throw new ConvexError("User not found");
     }
 
     const requestAlreadySent = await ctx.db
       .query("requests")
       .withIndex("by_sender_reciver", (q) =>
-        q.eq("sender", currentUser._id).eq("reciever", reciever._id),
+        q.eq("sender", currentUser._id).eq("receiver", receiver._id),
       )
       .unique();
 
@@ -48,7 +48,7 @@ export const create = mutation({
     const requestAlreadyRecieved = await ctx.db
       .query("requests")
       .withIndex("by_sender_reciver", (q) =>
-        q.eq("sender", reciever._id).eq("reciever", currentUser._id),
+        q.eq("sender", receiver._id).eq("receiver", currentUser._id),
       )
       .unique();
 
@@ -56,11 +56,26 @@ export const create = mutation({
       throw new ConvexError("Request already recieved");
     }
 
-    // ToDo Already friends with eachother
+    const friend1 = await ctx.db
+      .query("friends")
+      .withIndex("by_user1", (q) => q.eq("user1", currentUser._id))
+      .collect();
+
+    const friend2 = await ctx.db
+      .query("friends")
+      .withIndex("by_user2", (q) => q.eq("user2", currentUser._id))
+      .collect();
+
+    if (
+      friend1.some((friend) => friend.user2 === receiver._id) ||
+      friend2.some((friend) => friend.user1 === receiver._id)
+    ) {
+      throw new ConvexError("You are already a friend with this user");
+    }
 
     ctx.db.insert("requests", {
       sender: currentUser._id,
-      reciever: reciever._id,
+      receiver: receiver._id,
     });
   },
 });
@@ -85,7 +100,7 @@ export const get = query({
 
     const requests = await ctx.db
       .query("requests")
-      .withIndex("by_reciver", (q) => q.eq("reciever", currentUser._id))
+      .withIndex("by_reciver", (q) => q.eq("receiver", currentUser._id))
       .collect();
 
     const requestsWithSender = await Promise.all(
@@ -126,7 +141,7 @@ export const accept = mutation({
 
     const request = await ctx.db.get(args.id);
 
-    if (!request || request.reciever !== currentUser._id) {
+    if (!request || request.receiver !== currentUser._id) {
       throw new ConvexError("There was an error accepting this request");
     }
 
@@ -140,7 +155,15 @@ export const accept = mutation({
       conversationId,
     });
 
-    // ToDo add conversationMembers
+    await ctx.db.insert("conversationMembers", {
+      memberId: currentUser._id,
+      conversationId,
+    });
+
+    await ctx.db.insert("conversationMembers", {
+      memberId: request.sender,
+      conversationId,
+    });
 
     await ctx.db.delete(request._id);
   },
@@ -168,7 +191,7 @@ export const deny = mutation({
 
     const request = await ctx.db.get(args.id);
 
-    if (!request || request.reciever !== currentUser._id) {
+    if (!request || request.receiver !== currentUser._id) {
       throw new ConvexError("There was an error denying this request");
     }
 
