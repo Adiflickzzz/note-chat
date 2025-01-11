@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 type DmsProps = {
   isActive?: boolean;
   imgUrl?: string;
-  name: string;
+  name?: string;
 };
 
 export const Dms = ({ imgUrl, name, isActive }: DmsProps) => {
@@ -22,7 +22,7 @@ export const Dms = ({ imgUrl, name, isActive }: DmsProps) => {
         <Avatar className="size-8">
           <AvatarImage src={imgUrl} />
           <AvatarFallback className="size-8 bg-black/10 font-semibold text-black">
-            {name.charAt(0).toUpperCase()}
+            {name?.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
         <p className="text-md truncate font-semibold">{name}</p>
