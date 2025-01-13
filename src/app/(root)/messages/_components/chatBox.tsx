@@ -27,8 +27,8 @@ export const ChatBox = ({ imgUrl, name }: ChatBoxProps) => {
       {/* Content */}
       <CardContent className="flex flex-1 flex-col overflow-y-auto px-6 py-4">
         {/* Conversation */}
-        <div className="flex h-full items-end bg-red-50 pt-0 text-gray-600">
-          <p className="">Hello brother</p>
+        <div className="flex h-full items-end pt-0 text-gray-600">
+          <p className=""></p>
         </div>
       </CardContent>
 

@@ -1,14 +1,17 @@
+import { Card, CardContent } from "@/components/ui/card";
 import React from "react";
-import { MessagesSidebar } from "./_components/messagesSidebar";
-import { ChatBox } from "./_components/chatBox";
-import { Id } from "convex/_generated/dataModel";
 
-const MessagesPage = () => {
+type Props = {};
+
+const MessagesPage = (props: Props) => {
   return (
-    <div className="flex gap-4">
-      <MessagesSidebar />
-      <ChatBox name="Adithya Vardhan" />
-    </div>
+    <Card className="w-full">
+      <CardContent className="">
+        <p className="text-muted-foreground">
+          Select a conversation to start a chat
+        </p>
+      </CardContent>
+    </Card>
   );
 };
 

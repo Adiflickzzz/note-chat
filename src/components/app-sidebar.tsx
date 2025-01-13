@@ -72,7 +72,7 @@ export async function AppSidebar() {
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
-                  <SidebarMenuBadge>1</SidebarMenuBadge>
+                  <SidebarMenuBadge></SidebarMenuBadge>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
