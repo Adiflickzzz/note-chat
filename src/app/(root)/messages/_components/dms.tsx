@@ -10,7 +10,7 @@ type DmsProps = {
 
 export const Dms = ({ imgUrl, name, isActive }: DmsProps) => {
   return (
-    <div className="w-56">
+    <div className="w-full">
       <Button
         variant="ghost"
         className={cn(
