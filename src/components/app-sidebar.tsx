@@ -35,18 +35,6 @@ const items = [
     icon: UserRoundPlus,
     url: "/requests",
   },
-  {
-    title: "Calendar",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    icon: Settings,
-  },
 ];
 
 export async function AppSidebar() {
@@ -72,7 +60,7 @@ export async function AppSidebar() {
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
-                  <SidebarMenuBadge></SidebarMenuBadge>
+                  <SidebarMenuBadge>1</SidebarMenuBadge>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
