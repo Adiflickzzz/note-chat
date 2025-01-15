@@ -14,6 +14,7 @@ import { api } from "convex/_generated/api";
 import { Id } from "convex/_generated/dataModel";
 import { Settings2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Messages } from "./message";
 
 type ChatBoxProps = {
   name: string;
@@ -71,8 +72,8 @@ export const ChatBox = ({ imgUrl, name, conversationId }: ChatBoxProps) => {
       {/* Content */}
       <CardContent className="flex flex-1 flex-col overflow-y-auto px-6 py-4">
         {/* Conversation */}
-        <div className="flex h-full items-end pt-0 text-gray-600">
-          <p className=""></p>
+        <div className="flex h-full w-full items-end pt-0 text-gray-600">
+          {/*Todo <Messages/> */}
         </div>
       </CardContent>
 
