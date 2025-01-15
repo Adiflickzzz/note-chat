@@ -77,7 +77,7 @@ export const ChatBox = ({ imgUrl, name, conversationId }: ChatBoxProps) => {
       {/* Content */}
       <CardContent className="flex flex-1 flex-col overflow-y-auto px-6 py-4">
         {/* Conversation */}
-        <div className="no-scrollbar flex flex-1 flex-col-reverse gap-2 overflow-y-scroll p-3">
+        <div className="no-scrollbar flex flex-1 flex-col-reverse gap-0.5 overflow-y-scroll p-3">
           {/*Todo <Messages/> */}
           {messages?.map(
             (
@@ -105,7 +105,9 @@ export const ChatBox = ({ imgUrl, name, conversationId }: ChatBoxProps) => {
       </CardContent>
 
       {/* Textarea */}
-      <InputBox />
+      <div className="m-4">
+        <InputBox />
+      </div>
     </Card>
   );
 };
