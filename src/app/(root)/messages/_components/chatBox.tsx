@@ -15,6 +15,8 @@ import { Id } from "convex/_generated/dataModel";
 import { Settings2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Messages } from "./message";
+import { useQuery } from "convex/react";
+import { InputBox } from "./inputbox";
 
 type ChatBoxProps = {
   name: string;
@@ -26,6 +28,9 @@ export const ChatBox = ({ imgUrl, name, conversationId }: ChatBoxProps) => {
   const router = useRouter();
   const { mutate: removeFriend, pending: removeFriendPending } =
     useMutationState(api.friend.remove);
+  const messages = useQuery(api.messages.get, {
+    id: conversationId as Id<"conversations">,
+  });
 
   const RemoveFriend = () => {
     console.log("Clicked");
@@ -72,18 +77,35 @@ export const ChatBox = ({ imgUrl, name, conversationId }: ChatBoxProps) => {
       {/* Content */}
       <CardContent className="flex flex-1 flex-col overflow-y-auto px-6 py-4">
         {/* Conversation */}
-        <div className="flex h-full w-full items-end pt-0 text-gray-600">
+        <div className="no-scrollbar flex flex-1 flex-col-reverse gap-2 overflow-y-scroll p-3">
           {/*Todo <Messages/> */}
+          {messages?.map(
+            (
+              { message, senderUsername, senderImage, isCurrentUser },
+              index,
+            ) => {
+              const lastByUser =
+                messages[index - 1]?.message.senderId ===
+                messages[index]?.message.senderId;
+
+              return (
+                <Messages
+                  key={message._id}
+                  fromCurrentUser={isCurrentUser}
+                  senderImage={senderImage}
+                  senderName={senderUsername}
+                  lastByUser={lastByUser}
+                  content={message.content}
+                  createdAt={message._creationTime}
+                />
+              );
+            },
+          )}
         </div>
       </CardContent>
 
       {/* Textarea */}
-      <div className="border-t px-6 py-4">
-        <Textarea
-          placeholder="Type a message..."
-          className="h-12 w-full resize-none rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+      <InputBox />
     </Card>
   );
 };
