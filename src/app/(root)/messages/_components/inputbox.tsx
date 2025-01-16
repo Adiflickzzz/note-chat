@@ -1,3 +1,4 @@
+"use state";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -7,7 +8,9 @@ import { useConversation } from "@/hooks/useConversation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "convex/_generated/api";
 import { ConvexError } from "convex/values";
-import { SendHorizonal } from "lucide-react";
+import { Link, SendHorizonal, XIcon } from "lucide-react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "sonner";
@@ -21,7 +24,6 @@ const chatMessageSchema = z.object({
 
 export const InputBox = () => {
   const { conversationId } = useConversation();
-
   const { mutate: createMessage, pending } = useMutationState(
     api.message.create,
   );
@@ -60,8 +62,8 @@ export const InputBox = () => {
       });
   };
   return (
-    <div className="flex items-center gap-3">
-      <Card className="relative w-full rounded-lg p-2 shadow-sm">
+    <div className="flex items-center gap-2">
+      <Card className="relative w-full rounded-xl p-2 shadow-sm">
         <div className="flex w-full items-end gap-2">
           <Form {...form}>
             <form
@@ -82,7 +84,7 @@ export const InputBox = () => {
                           }
                         }}
                         rows={1}
-                        maxRows={3}
+                        maxRows={16}
                         {...field}
                         onChange={handleInputChange}
                         onClick={handleInputChange}
@@ -100,10 +102,19 @@ export const InputBox = () => {
       <Button
         disabled={pending}
         size="icon"
-        onClick={form.handleSubmit(handleSubmit)}
+        variant="ghost"
+        onClick={() => {}}
         className="shrink-0 rounded-full"
       >
-        <SendHorizonal />
+        <Link className="" />
+      </Button>
+      <Button
+        disabled={pending}
+        size="icon"
+        onClick={form.handleSubmit(handleSubmit)}
+        className="w-24 shrink-0 rounded-full"
+      >
+        Send <SendHorizonal />
       </Button>
     </div>
   );

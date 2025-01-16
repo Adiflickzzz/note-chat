@@ -39,7 +39,7 @@ export const ChatBox = ({ imgUrl, name, conversationId }: ChatBoxProps) => {
   };
 
   return (
-    <Card className="flex h-[calc(100vh-120px)] w-full flex-col rounded-lg bg-white shadow-md">
+    <Card className="flex h-[calc(100vh-120px)] w-full flex-col rounded-xl bg-white shadow-md">
       {/* Header */}
       <CardHeader className="border-b px-6 py-4">
         <CardTitle className="flex items-center justify-between">
@@ -59,7 +59,7 @@ export const ChatBox = ({ imgUrl, name, conversationId }: ChatBoxProps) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent side="bottom" className="mr-8 mt-2">
                 <DropdownMenuGroup>
-                  {/* <DropdownMenuItem>hello</DropdownMenuItem>
+                  {/*Todo <DropdownMenuItem>hello</DropdownMenuItem>
                   <Separator /> */}
                   <DropdownMenuItem
                     onClick={RemoveFriend}
