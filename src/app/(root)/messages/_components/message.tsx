@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { format } from "date-fns";
@@ -22,6 +23,7 @@ export const Messages = ({
   const formatTime = (timeStamp: number) => {
     return format(timeStamp, "HH:mm");
   };
+  const isMobile = useIsMobile();
   return (
     <div
       className={cn("flex w-full items-end", {
@@ -42,7 +44,14 @@ export const Messages = ({
             "rounded-bl-none": !lastByUser && !fromCurrentUser,
           })}
         >
-          <p className="whitespace-pre-wrap text-wrap break-words py-1 pl-2 pr-4">
+          <p
+            className={cn(
+              "whitespace-pre-wrap text-wrap break-words py-1 pl-2 pr-4",
+              {
+                "text-xs font-light": isMobile,
+              },
+            )}
+          >
             {content}
           </p>
           <p
@@ -55,7 +64,7 @@ export const Messages = ({
           </p>
         </div>
       </div>
-      <Avatar
+      {/* <Avatar
         className={cn("realtive size-8", {
           "order-2": fromCurrentUser,
           "order-1": !fromCurrentUser,
@@ -64,7 +73,7 @@ export const Messages = ({
       >
         <AvatarImage src={senderImage} />
         <AvatarFallback>{senderName.substring(0, 1)}</AvatarFallback>
-      </Avatar>
+      </Avatar> */}
     </div>
   );
 };

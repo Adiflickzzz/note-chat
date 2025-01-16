@@ -24,7 +24,6 @@ const ChatboxPage = ({ params: { conversationId } }: Props) => {
     <ChatBox
       imgUrl={conversation?.otherMember.imageUrl}
       name={conversation?.otherMember.username!}
-      conversationId={conversation?._id!}
     />
   );
 };
