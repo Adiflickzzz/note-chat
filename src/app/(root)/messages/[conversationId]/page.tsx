@@ -14,17 +14,19 @@ const ChatboxPage = ({ params: { conversationId } }: Props) => {
 
   if (conversation === undefined) {
     return (
-      <div className="flex h-full w-full items-center justify-center">
+      <div className="my-auto flex h-full w-full items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   return (
-    <ChatBox
-      imgUrl={conversation?.otherMember.imageUrl}
-      name={conversation?.otherMember.username!}
-    />
+    <div className="w-full">
+      <ChatBox
+        imgUrl={conversation?.otherMember.imageUrl}
+        name={conversation?.otherMember.username!}
+      />
+    </div>
   );
 };
 

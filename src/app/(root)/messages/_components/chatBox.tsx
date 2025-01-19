@@ -12,14 +12,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,6 +27,7 @@ import { toast } from "sonner";
 import { ConvexError } from "convex/values";
 import TextareaAutosize from "react-textarea-autosize";
 import { useConversation } from "@/hooks/useConversation";
+import { Hint } from "@/components/hint";
 
 type ChatBoxProps = {
   name: string;
@@ -87,38 +80,29 @@ export const ChatBox = ({ imgUrl, name }: ChatBoxProps) => {
   };
 
   const handleSubmit = async (value: z.infer<typeof chatMessageSchema>) => {
-    createMessage({
-      conversationId,
-      type: "Text",
-      content: [value.content],
-    })
-      .then(() => {
-        form.reset();
-      })
-      .catch((error) => {
-        toast.error(
-          error instanceof ConvexError
-            ? error.data
-            : "Unexpected error occurred",
-        );
-      });
+    {
+      !pending &&
+        createMessage({
+          conversationId,
+          type: "Text",
+          content: [value.content],
+        })
+          .then(() => {
+            form.reset();
+          })
+          .catch((error) => {
+            toast.error(
+              error instanceof ConvexError
+                ? error.data
+                : "Unexpected error occurred",
+            );
+          });
+    }
   };
 
   return (
     <div>
-      <Breadcrumb className="mx-4 my-6">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/messages">Messages</BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-
-      <Card className="flex h-[calc(100vh-10vh)] w-full flex-col rounded-xl bg-white shadow-md">
+      <Card className="flex h-[calc(100vh-10vh)] !w-full flex-col rounded-xl bg-white shadow-md">
         {/* Header */}
         {/* <CardHeader className="border-b px-6 py-4">
         <CardTitle className="flex items-center justify-between">
@@ -220,15 +204,17 @@ export const ChatBox = ({ imgUrl, name }: ChatBoxProps) => {
                 </Form>
               </div>
             </Card>
-            <Button
-              disabled={pending}
-              size="icon"
-              variant="ghost"
-              onClick={() => {}}
-              className="shrink-0 rounded-full"
-            >
-              <Link2 className="" />
-            </Button>
+            <Hint label="Attach files">
+              <Button
+                disabled={pending}
+                size="icon"
+                variant="ghost"
+                onClick={() => {}}
+                className="shrink-0 rounded-full"
+              >
+                <Link2 className="" />
+              </Button>
+            </Hint>
             <Button
               disabled={pending}
               size="icon"
