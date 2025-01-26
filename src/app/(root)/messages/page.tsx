@@ -5,12 +5,12 @@ type Props = {};
 
 const MessagesPage = (props: Props) => {
   return (
-    <Card className="w-full">
-      <CardContent className="">
+    <Card className="h-[calc(100vh-120px)] w-full">
+      <div className="flex h-full w-full items-center justify-center">
         <p className="text-muted-foreground">
-          Select a conversation to start a chat
+          Select conversation to start a chat ...
         </p>
-      </CardContent>
+      </div>
     </Card>
   );
 };
